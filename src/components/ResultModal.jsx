@@ -54,7 +54,9 @@ const ResultModal = forwardRef(function ResultModal(
 
     // The 'ref' property below is assigned with local 'ref' which is detached from the forwarded 'ref'
     // from outside
-    <dialog ref={dialog} className="result-modal">
+    // Added onClose prop and binded it to OnReset in case user press ESC to close the modal
+    // and we want the timer still reset with ESC pressed
+    <dialog ref={dialog} className="result-modal" onClose={onReset}>
       {userLost && <h2>You lost</h2>}
       {!userLost && <h2>Your score: {score} </h2>}
       <p>
