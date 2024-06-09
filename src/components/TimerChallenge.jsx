@@ -17,6 +17,9 @@ export default function TimerChallenge({ title, targetTime }) {
      React store the ref */
   const eachTimer = useRef();
 
+  // Creating another 'ref' for showing modal (dimmer background) of the <dialog> element in <ResultModal>
+  const dialog = useRef();
+
   const [timerStarted, setTimerStarted] = useState(false);
   const [timerExpired, setTimerExpired] = useState(false);
 
@@ -24,6 +27,8 @@ export default function TimerChallenge({ title, targetTime }) {
     //sharedTimer = setTimerExpired(true);
     eachTimer.current = setTimeout(() => {
       setTimerExpired(true);
+
+      // Using the built-in showModal() method of the <dialog> to show its built-in modal (dimmer backdrop)
       dialog.current.showModal();
     }, targetTime * 1000);
 
@@ -36,7 +41,8 @@ export default function TimerChallenge({ title, targetTime }) {
   }
   return (
     <>
-      {timerExpired && <ResultModal targetTime={targetTime} result="lost" />}
+      {/* Forwarding 'ref' to the forwardRef() in the <ResultModal> component */}
+      <ResultModal ref={dialog} targetTime={targetTime} result="lost" />
       <section className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">
