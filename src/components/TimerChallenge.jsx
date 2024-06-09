@@ -1,5 +1,7 @@
 import { useState, useRef } from "react";
 
+import ResultModal from "./ResultModal";
+
 /*  The sharedTimer variable is shared among all instances of the TimerChalleng component
     Every time new component instance was created, the shareTimer pointer will point to 
     new timer created by setTimeOut() of that component instance.
@@ -22,6 +24,7 @@ export default function TimerChallenge({ title, targetTime }) {
     //sharedTimer = setTimerExpired(true);
     eachTimer.current = setTimeout(() => {
       setTimerExpired(true);
+      dialog.current.showModal();
     }, targetTime * 1000);
 
     setTimerStarted(true);
@@ -32,20 +35,22 @@ export default function TimerChallenge({ title, targetTime }) {
     clearTimeout(eachTimer.current);
   }
   return (
-    <section className="challenge">
-      <h2>{title}</h2>
-      {timerExpired ? <p>"You lost" </p> : ""}
-      <p className="challenge-time">
-        {targetTime} second {targetTime > 1 ? "s" : ""}
-      </p>
-      <p>
-        <button onClick={timerStarted ? handleStop : handleStart}>
-          {timerStarted ? "Stop" : "Start"} Challenge
-        </button>
-      </p>
-      <p className={timerStarted ? "active" : ""}>
-        {timerStarted ? "Time is running..." : "Timer inactive"}
-      </p>
-    </section>
+    <>
+      {timerExpired && <ResultModal targetTime={targetTime} result="lost" />}
+      <section className="challenge">
+        <h2>{title}</h2>
+        <p className="challenge-time">
+          {targetTime} second {targetTime > 1 ? "s" : ""}
+        </p>
+        <p>
+          <button onClick={timerStarted ? handleStop : handleStart}>
+            {timerStarted ? "Stop" : "Start"} Challenge
+          </button>
+        </p>
+        <p className={timerStarted ? "active" : ""}>
+          {timerStarted ? "Time is running..." : "Timer inactive"}
+        </p>
+      </section>
+    </>
   );
 }
