@@ -1,4 +1,5 @@
 import { forwardRef, useImperativeHandle, useRef } from "react";
+import { createPortal } from "react-dom"; // For moving <dialog> modal up to overlay all elements
 
 /************************************************************************************
  We use forwardRef to wrap the component function ResultModal(props, ref), hence
@@ -34,7 +35,13 @@ const ResultModal = forwardRef(function ResultModal(
     };
   });
 
-  return (
+  /******************************************************************************
+    The createPortal() takes 2 arguments: 
+    1. JSX, 
+    2. HTML element under which we want to place elements created by JSX
+  *******************************************************************************/
+
+  return createPortal(
     /********************************************************************************* 
     The HTML built-in element <dialog> already has backdrop to dim its background,
     but when using its property 'open' to force it open, the backdrop can't show up 
@@ -73,7 +80,8 @@ const ResultModal = forwardRef(function ResultModal(
       <form method="dialog" onSubmit={onReset}>
         <button>Close</button>
       </form>
-    </dialog>
+    </dialog>,
+    document.getElementById("modal")
   );
 });
 
