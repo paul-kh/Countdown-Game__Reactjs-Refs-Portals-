@@ -29,7 +29,8 @@ export default function TimerChallenge({ title, targetTime }) {
       setTimerExpired(true);
 
       // Using the built-in showModal() method of the <dialog> to show its built-in modal (dimmer backdrop)
-      dialog.current.showModal();
+      //dialog.current.showModal();
+      dialog.current.open();
     }, targetTime * 1000);
 
     setTimerStarted(true);
