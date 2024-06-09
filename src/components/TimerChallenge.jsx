@@ -28,6 +28,10 @@ export default function TimerChallenge({ title, targetTime }) {
   if (remainingTime <= 0) {
     clearInterval(eachTimer.current);
     dialog.current.open();
+  }
+
+  // Reset timer once the Form is submitted by click the "Close" button in <ResultModal>
+  function handleReset() {
     setRemainingTime(targetTime * 1000);
   }
 
@@ -47,7 +51,12 @@ export default function TimerChallenge({ title, targetTime }) {
   return (
     <>
       {/* Forwarding 'ref' to the forwardRef() in the <ResultModal> component */}
-      <ResultModal ref={dialog} targetTime={targetTime} result="lost" />
+      <ResultModal
+        ref={dialog}
+        targetTime={targetTime}
+        remainingTime={remainingTime}
+        onReset={handleReset}
+      />
       <section className="challenge">
         <h2>{title}</h2>
         <p className="challenge-time">
