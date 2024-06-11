@@ -18,7 +18,7 @@ A player wants to challenge themself by stopping a count-down timer at its close
 - Using refs for more than "DOM Element Connections"
 - Forwarding refs to custom components
 - Exposing component APIs via the useImperativeHandle() Hook
-- Using "Portals" (createPortal) to inject JSX to a specific HTML element -- commonly used for modal/backdrop of a <dialog> element
+- Using "Portals" (createPortal) to inject JSX to a specific HTML element -- commonly used for modal/backdrop of a dialog element
 
 ## Technologies Used
 
